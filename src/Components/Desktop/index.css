@@ -1,0 +1,310 @@
+@import url("https://fonts.googleapis.com/css?family=Josefin+Sans");
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Josefin Sans", cursive;
+}
+
+.navBar {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    position: fixed;
+    z-index: 1;
+}
+
+.navLogo {
+    width: 150px;
+    height: 150px;
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+}
+
+.navOptions {
+    width: fit-content;
+    height: 150px;
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navButtons {
+    font-size: 25px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.navUserSection {
+    width: fit-content;
+    height: 150px;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.searchField {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+}
+
+/* Home page */
+.homePage {
+    /* border: 2px solid green; */
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel {
+    width: 95%;
+    height: 60vh;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 250px;
+}
+
+.carouselItems {
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carouselImage {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.carouselCaption {
+    font-size: 40px;
+}
+
+/* products section */
+.productsSection {
+    /* border: 2px solid green; */
+    width: 90%;
+    height: fit-content;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4rem;
+    margin: 2rem;
+}
+
+.categorySection {
+    /* border: 2px solid rgb(0, 13, 128); */
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.popularSectionTitle,
+.categorySectionTitle {
+    /* border: 2px solid rgb(128, 122, 0); */
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popularSectionTitle,
+.categorySectionTitle span {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.productCardSection,
+.popularProductSection {
+    /* border: 2px solid rgb(128, 77, 0); */
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popularSection {
+    /* border: 2px solid rgb(124, 0, 128); */
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Popular products review and stock status */
+.reviewStatus {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Product Categories Page */
+.categoriesPage {
+    /* border: 5px solid green; */
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+    gap: 2rem;
+    /* background-color: #FFDB58; */
+}
+
+.categorySideNav {
+    position: fixed;
+    width: 25%;
+    min-height: 85%;
+    display: flex;
+    align-items: center;
+    left: 0;
+    top: 150px;
+   
+}
+
+.sideNavContent {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sideNavContent span {
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    color: #154432;
+}
+
+.categoriesList {
+    /* border: 2px solid; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.categoryPageSection {
+    border: 2px solid;
+    width: 70%;
+    height: fit-content;
+    margin-top: 180px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-left: 500px;
+    /* border: 2px solid red; */
+}
+
+.categoryPageTitle {
+    /* border: 2px solid rgb(128, 122, 0); */
+    width: 100%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.categoryPageTitle span {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.categoryCardSection {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Individual products */
+/* Fruits,Chocolates,Spices,Natural Oils,Coffee Verities*/
+.productPage {
+    border: 5px solid green;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.pageTitle {
+    border: 2px solid;
+    width: 80%;
+    height: fit-content;
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.pageTitle span {
+    font-size: 40px;
+    font-weight: bold;
+    display: flex;
+
+}
+
+.pageFilter{
+    border: 2px solid;
+    width: 80%;
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pageFilter span{
+    font-size: 30px;
+    font-weight: bold;
+    display: flex;
+}
+.productSection {
+    border: 2px solid;
+    width: 80%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
