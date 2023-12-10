@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -20,111 +20,126 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 function NaturalOils() {
-    let productCoffee = [
-        {
-          name: "Lavender Oil",
-          price: "350",
-          reviews: "5",
-          inStock: true,
-          quantity: "30",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322032/samples/ecommerce/Natural%20Oils/Lavender_oil_b1ytha.jpg",
-        },
-        {
-          name: "Olive Oil",
-          price: "360",
-          reviews: "8",
-          inStock: true,
-          quantity: "250",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322032/samples/ecommerce/Natural%20Oils/Olive_Oil_jiyuqh.jpg",
-        },
-        {
-          name: "Herbal Oil",
-          price: "500",
-          reviews: "4",
-          inStock: false,
-          quantity: "500",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322031/samples/ecommerce/Natural%20Oils/Herbal_oil_ysbn6f.jpg",
-        },
-        {
-          name: "Rose Oil",
-          price: "350",
-          reviews: "1",
-          inStock: true,
-          quantity: "30",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322026/samples/ecommerce/Natural%20Oils/Rose_oil_zgaozs.jpg",
-        },
-        {
-          name: "Sandlewood Oil",
-          price: "1050",
-          reviews: "7",
-          inStock: true,
-          quantity: "50",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322025/samples/ecommerce/Natural%20Oils/Sandlewood_oil_vxgctd.webp",
-        },
-        {
-          name: "Jassmin Oil",
-          price: "720",
-          reviews: "7",
-          inStock: true,
-          quantity: "75",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322023/samples/ecommerce/Natural%20Oils/Jassmin_oil_ov1ymq.webp",
-        },
-        {
-          name: "Lemon Grass Oil",
-          price: "650",
-          reviews: "7",
-          inStock: true,
-          quantity: "250",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322018/samples/ecommerce/Natural%20Oils/Lemon_grass_oil_g9bzaz.jpg",
-        },
-        {
-          name: "Almond Oil",
-          price: "350",
-          reviews: "7",
-          inStock: true,
-          quantity: "250",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322010/samples/ecommerce/Natural%20Oils/Almond_oil_jq22aq.jpg",
-        },
-        {
-          name: "Eucalyptus Oil",
-          price: "332",
-          reviews: "7",
-          inStock: true,
-          quantity: "250",
-          unit: "ml",
-          image:
-            "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322006/samples/ecommerce/Natural%20Oils/Eucalyptus_oil_cnou0k.jpg",
-        },
-        {
-            name: "Clove Oil",
-            price: "150",
-            reviews: "7",
-            inStock: true,
-            quantity: "30",
-            unit: "ml",
-            image:
-              "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322002/samples/ecommerce/Natural%20Oils/Clove_Oil_tbfulj.jpg",
-          },
-      ];
-      productCoffee.sort((a, b) => a.name.localeCompare(b.name));
-      const [sort, setSort] = useState(false);
-      const [priceSort, setPriceSort] = useState([]);
+  const [productOil, setProductOil] = useState([]);
+  const getOils = async () => {
+    try {
+      const data = await fetch("http://localhost:4000/api/products/oils", {
+        headers: { productAuth: sessionStorage.getItem("autt") },
+      });
+      const jsonData = await data.json();
+      setProductOil(jsonData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getOils();
+  }, [productOil]);
+  // let productOil = [
+  //     {
+  //       name: "Lavender Oil",
+  //       price: "350",
+  //       reviews: "5",
+  //       inStock: true,
+  //       quantity: "30",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322032/samples/ecommerce/Natural%20Oils/Lavender_oil_b1ytha.jpg",
+  //     },
+  //     {
+  //       name: "Olive Oil",
+  //       price: "360",
+  //       reviews: "8",
+  //       inStock: true,
+  //       quantity: "250",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322032/samples/ecommerce/Natural%20Oils/Olive_Oil_jiyuqh.jpg",
+  //     },
+  //     {
+  //       name: "Herbal Oil",
+  //       price: "500",
+  //       reviews: "4",
+  //       inStock: false,
+  //       quantity: "500",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322031/samples/ecommerce/Natural%20Oils/Herbal_oil_ysbn6f.jpg",
+  //     },
+  //     {
+  //       name: "Rose Oil",
+  //       price: "350",
+  //       reviews: "1",
+  //       inStock: true,
+  //       quantity: "30",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322026/samples/ecommerce/Natural%20Oils/Rose_oil_zgaozs.jpg",
+  //     },
+  //     {
+  //       name: "Sandlewood Oil",
+  //       price: "1050",
+  //       reviews: "7",
+  //       inStock: true,
+  //       quantity: "50",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322025/samples/ecommerce/Natural%20Oils/Sandlewood_oil_vxgctd.webp",
+  //     },
+  //     {
+  //       name: "Jassmin Oil",
+  //       price: "720",
+  //       reviews: "7",
+  //       inStock: true,
+  //       quantity: "75",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322023/samples/ecommerce/Natural%20Oils/Jassmin_oil_ov1ymq.webp",
+  //     },
+  //     {
+  //       name: "Lemon Grass Oil",
+  //       price: "650",
+  //       reviews: "7",
+  //       inStock: true,
+  //       quantity: "250",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322018/samples/ecommerce/Natural%20Oils/Lemon_grass_oil_g9bzaz.jpg",
+  //     },
+  //     {
+  //       name: "Almond Oil",
+  //       price: "350",
+  //       reviews: "7",
+  //       inStock: true,
+  //       quantity: "250",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322010/samples/ecommerce/Natural%20Oils/Almond_oil_jq22aq.jpg",
+  //     },
+  //     {
+  //       name: "Eucalyptus Oil",
+  //       price: "332",
+  //       reviews: "7",
+  //       inStock: true,
+  //       quantity: "250",
+  //       unit: "ml",
+  //       image:
+  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322006/samples/ecommerce/Natural%20Oils/Eucalyptus_oil_cnou0k.jpg",
+  //     },
+  //     {
+  //         name: "Clove Oil",
+  //         price: "150",
+  //         reviews: "7",
+  //         inStock: true,
+  //         quantity: "30",
+  //         unit: "ml",
+  //         image:
+  //           "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322002/samples/ecommerce/Natural%20Oils/Clove_Oil_tbfulj.jpg",
+  //       },
+  //   ];
+
+  const [sort, setSort] = useState(false);
+  const [priceSort, setPriceSort] = useState([]);
   return (
     <div className="productPage">
       <div className="pageTitle">
@@ -139,7 +154,7 @@ function NaturalOils() {
         <span>Sort by Price :</span>
         <IconButton
           onClick={() => {
-            setPriceSort(productCoffee.sort((a, b) => a.price - b.price)) ||
+            setPriceSort(productOil.sort((a, b) => a.price - b.price)) ||
               setSort(true);
           }}
         >
@@ -148,7 +163,7 @@ function NaturalOils() {
         </IconButton>
         <IconButton
           onClick={() => {
-            setPriceSort(productCoffee.sort((a, b) => b.price - a.price)) ||
+            setPriceSort(productOil.sort((a, b) => b.price - a.price)) ||
               setSort(true);
           }}
         >
@@ -158,7 +173,7 @@ function NaturalOils() {
       </div>
       <div className="productSection">
         {!sort
-          ? productCoffee.map((products) => (
+          ? productOil.map((products) => (
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1.1 }}
@@ -284,7 +299,7 @@ function NaturalOils() {
             ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default NaturalOils
+export default NaturalOils;

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
 import { IconButton, Paper, TextField } from "@mui/material";
@@ -20,8 +20,22 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function Navbar() {
+  const [cartCount] = useContext(addCartContext);
+  const [navLogo, setNavLogo] = useState();
+  const logo = async () => {
+    try {
+      const logo = await fetch("http://localhost:4000/auth");
+      const jsonData = await logo.json();
+      sessionStorage.setItem("autt", jsonData.token);
+      setNavLogo(jsonData.logo);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    logo();
+  }, []);
 
-  const [cartCount] = useContext(addCartContext)
   const navOptions = [
     {
       name: "Home",
@@ -44,11 +58,7 @@ function Navbar() {
   return (
     <Paper elevation={8} className="navBar">
       <div className="navLogo">
-        <img
-          src="https://res.cloudinary.com/dommwbnzh/image/upload/v1701331579/samples/ecommerce/Logo/Kodai-Logo_dpx9ms.png"
-          alt="Kodai Flavors"
-          className="logo"
-        />
+        <img src={navLogo} alt="Kodai Flavors" className="logo" />
       </div>
       <div className="navOptions">
         {navOptions.map((option) => (

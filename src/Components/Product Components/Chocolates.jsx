@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -20,111 +20,128 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 function Chocolates() {
-  const productChocolates = [
-    {
-      name: "Whole Nut Chocolates",
-      price: "600",
-      reviews: "5",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319130/samples/ecommerce/Chocolates/Whole_nut_chocolates_sqrhq1.jpg",
-    },
-    {
-      name: "White Chocolates",
-      price: "650",
-      reviews: "8",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319128/samples/ecommerce/Chocolates/White_chocolates_r6nf8b.jpg",
-    },
-    {
-      name: "Walnut Chocolates",
-      price: "650",
-      reviews: "4",
-      inStock: false,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319126/samples/ecommerce/Chocolates/Walnut_chocolates_eommkm.jpg",
-    },
-    {
-      name: "Wafer Chocolates",
-      price: "680",
-      reviews: "1",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319125/samples/ecommerce/Chocolates/Wafer_chocolates_w6od8s.jpg",
-    },
-    {
-      name: "Strawberry Filled Chocolates",
-      price: "680",
-      reviews: "7",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319124/samples/ecommerce/Chocolates/Strawberry_chocolates_wvpycx.jpg",
-    },
-    {
-      name: "Plain Chocolates",
-      price: "650",
-      reviews: "7",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319122/samples/ecommerce/Chocolates/Plain_chocolates_xfya2y.jpg",
-    },
-    {
-      name: "Honey Filled Chocolates",
-      price: "680",
-      reviews: "7",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319121/samples/ecommerce/Chocolates/Honey_chocolates_n3mnrj.jpg",
-    },
-    {
-      name: "Flavour Filled Chocolates",
-      price: "680",
-      reviews: "7",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319118/samples/ecommerce/Chocolates/Flavour_filled_chocolates_wyktlo.jpg",
-    },
-    {
-      name: "Dark Chocolates",
-      price: "650",
-      reviews: "7",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319118/samples/ecommerce/Chocolates/Dark_chocolates_ymdpie.jpg",
-    },
-    {
-      name: "Cherry Top Chocolates",
-      price: "700",
-      reviews: "7",
-      inStock: true,
-      quantity: "1",
-      unit: "kg",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319117/samples/ecommerce/Chocolates/Cherry_Top_Chocolates_q1mm2l.jpg",
-    },
-  ];
-  productChocolates.sort((a, b) => a.name.localeCompare(b.name));
   const [sort, setSort] = useState(false);
   const [priceSort, setPriceSort] = useState([]);
+  const [productChocolates, setProductChocolates] = useState([]);
+  const getChocolate = async () => {
+    try {
+      const data = await fetch(
+        "http://localhost:4000/api/products/chocolates",
+        {
+          headers: { productAuth: sessionStorage.getItem("autt") },
+        }
+      );
+      const jsonData = await data.json();
+      setProductChocolates(jsonData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getChocolate();
+  }, [productChocolates]);
+  // const productChocolates = [
+  //   {
+  //     name: "Whole Nut Chocolates",
+  //     price: "600",
+  //     reviews: "5",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319130/samples/ecommerce/Chocolates/Whole_nut_chocolates_sqrhq1.jpg",
+  //   },
+  //   {
+  //     name: "White Chocolates",
+  //     price: "650",
+  //     reviews: "8",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319128/samples/ecommerce/Chocolates/White_chocolates_r6nf8b.jpg",
+  //   },
+  //   {
+  //     name: "Walnut Chocolates",
+  //     price: "650",
+  //     reviews: "4",
+  //     inStock: false,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319126/samples/ecommerce/Chocolates/Walnut_chocolates_eommkm.jpg",
+  //   },
+  //   {
+  //     name: "Wafer Chocolates",
+  //     price: "680",
+  //     reviews: "1",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319125/samples/ecommerce/Chocolates/Wafer_chocolates_w6od8s.jpg",
+  //   },
+  //   {
+  //     name: "Strawberry Filled Chocolates",
+  //     price: "680",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319124/samples/ecommerce/Chocolates/Strawberry_chocolates_wvpycx.jpg",
+  //   },
+  //   {
+  //     name: "Plain Chocolates",
+  //     price: "650",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319122/samples/ecommerce/Chocolates/Plain_chocolates_xfya2y.jpg",
+  //   },
+  //   {
+  //     name: "Honey Filled Chocolates",
+  //     price: "680",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319121/samples/ecommerce/Chocolates/Honey_chocolates_n3mnrj.jpg",
+  //   },
+  //   {
+  //     name: "Flavour Filled Chocolates",
+  //     price: "680",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319118/samples/ecommerce/Chocolates/Flavour_filled_chocolates_wyktlo.jpg",
+  //   },
+  //   {
+  //     name: "Dark Chocolates",
+  //     price: "650",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319118/samples/ecommerce/Chocolates/Dark_chocolates_ymdpie.jpg",
+  //   },
+  //   {
+  //     name: "Cherry Top Chocolates",
+  //     price: "700",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "1",
+  //     unit: "kg",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319117/samples/ecommerce/Chocolates/Cherry_Top_Chocolates_q1mm2l.jpg",
+  //   },
+  // ];
 
   return (
     <div className="productPage">
@@ -172,8 +189,8 @@ function Chocolates() {
                       image={products.image}
                       title={products.name}
                     />
-                    <CardContent >
-                      <Typography gutterBottom variant="h5" component="div" >
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>

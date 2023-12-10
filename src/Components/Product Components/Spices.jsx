@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -20,101 +20,119 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 function Spices() {
-  let productSpices = [
-    {
-      name: "Poppy Seeds",
-      price: "1000",
-      reviews: "5",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319797/samples/ecommerce/Spices/Poppy_Seeds_acysnx.jpg",
-    },
-    {
-      name: "Clove",
-      price: "562",
-      reviews: "8",
-      inStock: true,
-      quantity: "250",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319781/samples/ecommerce/Spices/Clove_j7krka.jpg",
-    },
-    {
-      name: "Cinnamon",
-      price: "720",
-      reviews: "4",
-      inStock: false,
-      quantity: "250",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319777/samples/ecommerce/Spices/cinnamon_ndc5v9.jpg",
-    },
-    {
-      name: "Cumin (jeera)",
-      price: "300",
-      reviews: "1",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319776/samples/ecommerce/Spices/Cumin_a2itmp.jpg",
-    },
-    {
-      name: "Star Annes",
-      price: "720",
-      reviews: "7",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319770/samples/ecommerce/Spices/Star_Annes_fkxwq2.jpg",
-    },
-    {
-      name: "White Pepper",
-      price: "1000",
-      reviews: "7",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319744/samples/ecommerce/Spices/White_Pepper_g8efdr.jpg",
-    },
-    {
-      name: "Black Pepper",
-      price: "600",
-      reviews: "7",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319727/samples/ecommerce/Spices/Black_Pepper_winygh.jpg",
-    },
-    {
-      name: "Cardamom",
-      price: "700",
-      reviews: "7",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319700/samples/ecommerce/Spices/Cardamom_po5im3.jpg",
-    },
-    {
-      name: "Fennel",
-      price: "315",
-      reviews: "7",
-      inStock: true,
-      quantity: "500",
-      unit: "g",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319686/samples/ecommerce/Spices/fennel_xjxgdm.jpg",
-    },
-  ];
-  productSpices.sort((a, b) => a.name.localeCompare(b.name));
+  const [productSpices, setProductSpices] = useState([]);
   const [sort, setSort] = useState(false);
   const [priceSort, setPriceSort] = useState([]);
+
+  const getSpices = async () => {
+    try {
+      const data = await fetch("http://localhost:4000/api/products/spices", {
+        headers: { productAuth: sessionStorage.getItem("autt") },
+      });
+      const jsonData = await data.json();
+      setProductSpices(jsonData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getSpices();
+  }, [priceSort]);
+
+  // let productSpices = [
+  //   {
+  //     name: "Poppy Seeds",
+  //     price: "1000",
+  //     reviews: "5",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319797/samples/ecommerce/Spices/Poppy_Seeds_acysnx.jpg",
+  //   },
+  //   {
+  //     name: "Clove",
+  //     price: "562",
+  //     reviews: "8",
+  //     inStock: true,
+  //     quantity: "250",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319781/samples/ecommerce/Spices/Clove_j7krka.jpg",
+  //   },
+  //   {
+  //     name: "Cinnamon",
+  //     price: "720",
+  //     reviews: "4",
+  //     inStock: false,
+  //     quantity: "250",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319777/samples/ecommerce/Spices/cinnamon_ndc5v9.jpg",
+  //   },
+  //   {
+  //     name: "Cumin (jeera)",
+  //     price: "300",
+  //     reviews: "1",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319776/samples/ecommerce/Spices/Cumin_a2itmp.jpg",
+  //   },
+  //   {
+  //     name: "Star Annes",
+  //     price: "720",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319770/samples/ecommerce/Spices/Star_Annes_fkxwq2.jpg",
+  //   },
+  //   {
+  //     name: "White Pepper",
+  //     price: "1000",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319744/samples/ecommerce/Spices/White_Pepper_g8efdr.jpg",
+  //   },
+  //   {
+  //     name: "Black Pepper",
+  //     price: "600",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319727/samples/ecommerce/Spices/Black_Pepper_winygh.jpg",
+  //   },
+  //   {
+  //     name: "Cardamom",
+  //     price: "700",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319700/samples/ecommerce/Spices/Cardamom_po5im3.jpg",
+  //   },
+  //   {
+  //     name: "Fennel",
+  //     price: "315",
+  //     reviews: "7",
+  //     inStock: true,
+  //     quantity: "500",
+  //     unit: "g",
+  //     image:
+  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319686/samples/ecommerce/Spices/fennel_xjxgdm.jpg",
+  //   },
+  // ];
+  // productSpices.sort((a, b) => a.price-(b.price));
+
   return (
     <div className="productPage">
       <div className="pageTitle">
