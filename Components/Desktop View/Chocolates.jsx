@@ -135,8 +135,9 @@ function Chocolates() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem,products]);
+                          setCartItem([...cartItem, products]);
                         }}
+                        disabled={products.inStock ? false : true}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
@@ -202,8 +203,9 @@ function Chocolates() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem,products]);
+                          setCartItem([...cartItem, products]);
                         }}
+                        disabled={products.inStock ? false : true}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>

@@ -138,6 +138,7 @@ function Fruits() {
                         onClick={() => {
                           setCartItem([...cartItem,products]);
                         }}
+                        disabled={products.inStock ? false : true}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
@@ -205,6 +206,7 @@ function Fruits() {
                         onClick={() => {
                           setCartItem([...cartItem,products]);
                         }}
+                        disabled={products.inStock ? false : true}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>

@@ -135,6 +135,7 @@ function NaturalOils() {
                         onClick={() => {
                           setCartItem([...cartItem,products]);
                         }}
+                        disabled={products.inStock ? false : true}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
@@ -202,6 +203,7 @@ function NaturalOils() {
                         onClick={() => {
                           setCartItem([...cartItem,products]);
                         }}
+                        disabled={products.inStock ? false : true}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
