@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -18,73 +18,34 @@ import { green } from "@mui/material/colors";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { addCartContext } from "./DesktopApp";
+import { scrollToTop } from "../../Functions/Scrollonload";
 
-function Coffee() {
+function Spices() {
+  const [productSpices, setProductSpices] = useState([]);
   const [sort, setSort] = useState(false);
   const [priceSort, setPriceSort] = useState([]);
-  const [productCoffee, setProductCoffee] = useState([]);
-  const getCoffee = async () => {
+  const [cartItem, setCartItem] = useContext(addCartContext);
+  const getSpices = async () => {
     try {
-      const data = await fetch("http://localhost:4000/api/products/coffee", {
+      const data = await fetch("http://localhost:4000/api/products/spices", {
         headers: { productAuth: sessionStorage.getItem("autt") },
       });
       const jsonData = await data.json();
-      setProductCoffee(jsonData);
+      setProductSpices(jsonData);
     } catch (error) {
       console.log(error);
     }
   };
+  scrollToTop();
   useEffect(() => {
-    getCoffee();
-  }, [productCoffee]);
-  // let productCoffee = [
-  //     {
-  //       name: "Green Coffee",
-  //       price: "230",
-  //       reviews: "5",
-  //       inStock: true,
-  //       quantity: "1",
-  //       unit: "Kg",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700482005/samples/ecommerce/Coffee%20Verities/Green_coffeed_oprkag.jpg",
-  //     },
-  //     {
-  //       name: "Medium Roasted Coffee",
-  //       price: "350",
-  //       reviews: "8",
-  //       inStock: true,
-  //       quantity: "1",
-  //       unit: "Kg",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700482053/samples/ecommerce/Coffee%20Verities/Medium_Roasted_coffee_beans_syrklg.jpg",
-  //     },
-  //     {
-  //       name: "Dark Roasted Coffee",
-  //       price: "380",
-  //       reviews: "4",
-  //       inStock: false,
-  //       quantity: "1",
-  //       unit: "Kg",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700482020/samples/ecommerce/Coffee%20Verities/Dark_coffee_beans_wss4xd.jpg",
-  //     },
-  //     {
-  //       name: "Coffee Powder",
-  //       price: "350",
-  //       reviews: "1",
-  //       inStock: true,
-  //       quantity: "500",
-  //       unit: "g",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700482002/samples/ecommerce/Coffee%20Verities/Coffee_powder_o39m7r.jpg",
-  //     },
-
-  //   ];
+    getSpices();
+  }, [priceSort]);
 
   return (
     <div className="productPage">
       <div className="pageTitle">
-        <span>Kodai Coffee</span>
+        <span>Kodai Spices</span>
         <Link to="/categories">
           <Button sx={{ fontSize: 18, color: "red" }}>
             <KeyboardArrowLeftIcon /> back
@@ -95,7 +56,7 @@ function Coffee() {
         <span>Sort by Price :</span>
         <IconButton
           onClick={() => {
-            setPriceSort(productCoffee.sort((a, b) => a.price - b.price)) ||
+            setPriceSort(productSpices.sort((a, b) => a.price - b.price)) ||
               setSort(true);
           }}
         >
@@ -104,7 +65,7 @@ function Coffee() {
         </IconButton>
         <IconButton
           onClick={() => {
-            setPriceSort(productCoffee.sort((a, b) => b.price - a.price)) ||
+            setPriceSort(productSpices.sort((a, b) => b.price - a.price)) ||
               setSort(true);
           }}
         >
@@ -114,7 +75,7 @@ function Coffee() {
       </div>
       <div className="productSection">
         {!sort
-          ? productCoffee.map((products) => (
+          ? productSpices.map((products) => (
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1.1 }}
@@ -168,7 +129,12 @@ function Coffee() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem, products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -230,7 +196,12 @@ function Coffee() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem, products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -243,4 +214,4 @@ function Coffee() {
   );
 }
 
-export default Coffee;
+export default Spices;

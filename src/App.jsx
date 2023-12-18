@@ -1,14 +1,12 @@
-import './App.css'
-import DesktopApp from './Components/Desktop/DesktopApp'
+import "./App.css";
+import DesktopApp from "../Components/Desktop View/DesktopApp";
 
 function App() {
-
-
   return (
     <div>
-     <DesktopApp/>
+      <DesktopApp />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

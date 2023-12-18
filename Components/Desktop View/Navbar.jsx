@@ -8,7 +8,7 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import { Link } from "react-router-dom";
-import { addCartContext } from "./DesktopApp";
+import { addCartContext } from "../Desktop View/DesktopApp";
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   "& .MuiBadge-badge": {
@@ -20,7 +20,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function Navbar() {
-  const [cartCount] = useContext(addCartContext);
+  const [cartItem] = useContext(addCartContext);
   const [navLogo, setNavLogo] = useState();
   const logo = async () => {
     try {
@@ -83,9 +83,11 @@ function Navbar() {
           <PersonOutlineIcon sx={{ fontSize: 40 }} />
         </IconButton>
         <IconButton aria-label="cart">
-          <StyledBadge badgeContent={cartCount} color="secondary">
-            <AddShoppingCartIcon sx={{ fontSize: 40 }} />
-          </StyledBadge>
+          <Link to={"/myCart"}>
+            <StyledBadge badgeContent={cartItem.length} color="secondary">
+              <AddShoppingCartIcon sx={{ fontSize: 40 }} />
+            </StyledBadge>
+          </Link>
         </IconButton>
       </div>
     </Paper>

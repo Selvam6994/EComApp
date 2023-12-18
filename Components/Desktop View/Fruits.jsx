@@ -20,10 +20,11 @@ import { green } from "@mui/material/colors";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import { addCartContext } from "../Desktop/DesktopApp";
+import { addCartContext } from "./DesktopApp";
+import { scrollToTop } from "../../Functions/Scrollonload";
 
 function Fruits() {
-  const [cartCount, setCartCount] = useContext(addCartContext);
+  const [cartItem, setCartItem] = useContext(addCartContext);
   const [productFruits, setProductFruits] = useState([]);
   const [sort, setSort] = useState(false);
   const [priceSort, setPriceSort] = useState([]);
@@ -38,101 +39,11 @@ function Fruits() {
       console.log(error);
     }
   };
+
+  scrollToTop();
   useEffect(() => {
     getfruits();
   }, [productFruits]);
-  // const productFruits = [
-  //   {
-  //     name: "Avacado",
-  //     price: "280",
-  //     reviews: "5",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319386/samples/ecommerce/Fruits/Avacado_c0zcme.jpg",
-  //   },
-  //   {
-  //     name: "Rambutan",
-  //     price: "650",
-  //     reviews: "8",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319369/samples/ecommerce/Fruits/Rambutan_ud2nb2.jpg",
-  //   },
-  //   {
-  //     name: "Strawberry",
-  //     price: "450",
-  //     reviews: "4",
-  //     inStock: false,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319368/samples/ecommerce/Fruits/Strawberry_sorkxf.jpg",
-  //   },
-  //   {
-  //     name: "Plums",
-  //     price: "280",
-  //     reviews: "1",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319362/samples/ecommerce/Fruits/Plums_tpao4s.jpg",
-  //   },
-  //   {
-  //     name: "Peaches",
-  //     price: "200",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319342/samples/ecommerce/Fruits/Peaches_bto6m5.jpg",
-  //   },
-  //   {
-  //     name: "Star Fruit",
-  //     price: "50",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319289/samples/ecommerce/Fruits/Star_fruit_xoyb38.jpg",
-  //   },
-  //   {
-  //     name: "Oranges",
-  //     price: "100",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319255/samples/ecommerce/Fruits/Oranges_wntj7t.jpg",
-  //   },
-  //   {
-  //     name: "Hill Banana",
-  //     price: "140",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319230/samples/ecommerce/Fruits/Hill_banana_fqqowi.jpg",
-  //   },
-  //   {
-  //     name: "Cherry",
-  //     price: "70",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319230/samples/ecommerce/Fruits/Cherry_lvydpf.jpg",
-  //   },
-  // ];
 
   return (
     <div className="productPage">
@@ -169,6 +80,7 @@ function Fruits() {
         {!sort
           ? productFruits.map((products) => (
               <motion.div
+
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
@@ -224,7 +136,7 @@ function Fruits() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartCount(cartCount + 1);
+                          setCartItem([...cartItem,products]);
                         }}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
@@ -291,7 +203,7 @@ function Fruits() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartCount(cartCount + 1);
+                          setCartItem([...cartItem,products]);
                         }}
                       >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />

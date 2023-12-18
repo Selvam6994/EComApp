@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -18,132 +18,34 @@ import { green } from "@mui/material/colors";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { addCartContext } from "./DesktopApp";
+import { scrollToTop } from "../../Functions/Scrollonload";
 
-function NaturalOils() {
-  const [productOil, setProductOil] = useState([]);
-  const getOils = async () => {
+function Coffee() {
+  const [sort, setSort] = useState(false);
+  const [priceSort, setPriceSort] = useState([]);
+  const [productCoffee, setProductCoffee] = useState([]);
+  const [cartItem, setCartItem] = useContext(addCartContext);
+  const getCoffee = async () => {
     try {
-      const data = await fetch("http://localhost:4000/api/products/oils", {
+      const data = await fetch("http://localhost:4000/api/products/coffee", {
         headers: { productAuth: sessionStorage.getItem("autt") },
       });
       const jsonData = await data.json();
-      setProductOil(jsonData);
+      setProductCoffee(jsonData);
     } catch (error) {
       console.log(error);
     }
   };
+  scrollToTop()
   useEffect(() => {
-    getOils();
-  }, [productOil]);
-  // let productOil = [
-  //     {
-  //       name: "Lavender Oil",
-  //       price: "350",
-  //       reviews: "5",
-  //       inStock: true,
-  //       quantity: "30",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322032/samples/ecommerce/Natural%20Oils/Lavender_oil_b1ytha.jpg",
-  //     },
-  //     {
-  //       name: "Olive Oil",
-  //       price: "360",
-  //       reviews: "8",
-  //       inStock: true,
-  //       quantity: "250",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322032/samples/ecommerce/Natural%20Oils/Olive_Oil_jiyuqh.jpg",
-  //     },
-  //     {
-  //       name: "Herbal Oil",
-  //       price: "500",
-  //       reviews: "4",
-  //       inStock: false,
-  //       quantity: "500",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322031/samples/ecommerce/Natural%20Oils/Herbal_oil_ysbn6f.jpg",
-  //     },
-  //     {
-  //       name: "Rose Oil",
-  //       price: "350",
-  //       reviews: "1",
-  //       inStock: true,
-  //       quantity: "30",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322026/samples/ecommerce/Natural%20Oils/Rose_oil_zgaozs.jpg",
-  //     },
-  //     {
-  //       name: "Sandlewood Oil",
-  //       price: "1050",
-  //       reviews: "7",
-  //       inStock: true,
-  //       quantity: "50",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322025/samples/ecommerce/Natural%20Oils/Sandlewood_oil_vxgctd.webp",
-  //     },
-  //     {
-  //       name: "Jassmin Oil",
-  //       price: "720",
-  //       reviews: "7",
-  //       inStock: true,
-  //       quantity: "75",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322023/samples/ecommerce/Natural%20Oils/Jassmin_oil_ov1ymq.webp",
-  //     },
-  //     {
-  //       name: "Lemon Grass Oil",
-  //       price: "650",
-  //       reviews: "7",
-  //       inStock: true,
-  //       quantity: "250",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322018/samples/ecommerce/Natural%20Oils/Lemon_grass_oil_g9bzaz.jpg",
-  //     },
-  //     {
-  //       name: "Almond Oil",
-  //       price: "350",
-  //       reviews: "7",
-  //       inStock: true,
-  //       quantity: "250",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322010/samples/ecommerce/Natural%20Oils/Almond_oil_jq22aq.jpg",
-  //     },
-  //     {
-  //       name: "Eucalyptus Oil",
-  //       price: "332",
-  //       reviews: "7",
-  //       inStock: true,
-  //       quantity: "250",
-  //       unit: "ml",
-  //       image:
-  //         "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322006/samples/ecommerce/Natural%20Oils/Eucalyptus_oil_cnou0k.jpg",
-  //     },
-  //     {
-  //         name: "Clove Oil",
-  //         price: "150",
-  //         reviews: "7",
-  //         inStock: true,
-  //         quantity: "30",
-  //         unit: "ml",
-  //         image:
-  //           "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322002/samples/ecommerce/Natural%20Oils/Clove_Oil_tbfulj.jpg",
-  //       },
-  //   ];
+    getCoffee();
+  }, [productCoffee]);
 
-  const [sort, setSort] = useState(false);
-  const [priceSort, setPriceSort] = useState([]);
   return (
     <div className="productPage">
       <div className="pageTitle">
-        <span>Natural Oils</span>
+        <span>Kodai Coffee</span>
         <Link to="/categories">
           <Button sx={{ fontSize: 18, color: "red" }}>
             <KeyboardArrowLeftIcon /> back
@@ -154,7 +56,7 @@ function NaturalOils() {
         <span>Sort by Price :</span>
         <IconButton
           onClick={() => {
-            setPriceSort(productOil.sort((a, b) => a.price - b.price)) ||
+            setPriceSort(productCoffee.sort((a, b) => a.price - b.price)) ||
               setSort(true);
           }}
         >
@@ -163,7 +65,7 @@ function NaturalOils() {
         </IconButton>
         <IconButton
           onClick={() => {
-            setPriceSort(productOil.sort((a, b) => b.price - a.price)) ||
+            setPriceSort(productCoffee.sort((a, b) => b.price - a.price)) ||
               setSort(true);
           }}
         >
@@ -173,7 +75,7 @@ function NaturalOils() {
       </div>
       <div className="productSection">
         {!sort
-          ? productOil.map((products) => (
+          ? productCoffee.map((products) => (
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1.1 }}
@@ -227,7 +129,12 @@ function NaturalOils() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem,products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -289,7 +196,12 @@ function NaturalOils() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem,products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -302,4 +214,4 @@ function NaturalOils() {
   );
 }
 
-export default NaturalOils;
+export default Coffee;

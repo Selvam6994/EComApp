@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -18,125 +18,37 @@ import { green } from "@mui/material/colors";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { addCartContext } from "./DesktopApp";
+import { scrollToTop } from "../../Functions/Scrollonload";
 
-function Spices() {
-  const [productSpices, setProductSpices] = useState([]);
+function Chocolates() {
   const [sort, setSort] = useState(false);
   const [priceSort, setPriceSort] = useState([]);
-
-  const getSpices = async () => {
+  const [productChocolates, setProductChocolates] = useState([]);
+  const [cartItem, setCartItem] = useContext(addCartContext);
+  const getChocolate = async () => {
     try {
-      const data = await fetch("http://localhost:4000/api/products/spices", {
-        headers: { productAuth: sessionStorage.getItem("autt") },
-      });
+      const data = await fetch(
+        "http://localhost:4000/api/products/chocolates",
+        {
+          headers: { productAuth: sessionStorage.getItem("autt") },
+        }
+      );
       const jsonData = await data.json();
-      setProductSpices(jsonData);
+      setProductChocolates(jsonData);
     } catch (error) {
       console.log(error);
     }
   };
+  scrollToTop();
   useEffect(() => {
-    getSpices();
-  }, [priceSort]);
-
-  // let productSpices = [
-  //   {
-  //     name: "Poppy Seeds",
-  //     price: "1000",
-  //     reviews: "5",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319797/samples/ecommerce/Spices/Poppy_Seeds_acysnx.jpg",
-  //   },
-  //   {
-  //     name: "Clove",
-  //     price: "562",
-  //     reviews: "8",
-  //     inStock: true,
-  //     quantity: "250",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319781/samples/ecommerce/Spices/Clove_j7krka.jpg",
-  //   },
-  //   {
-  //     name: "Cinnamon",
-  //     price: "720",
-  //     reviews: "4",
-  //     inStock: false,
-  //     quantity: "250",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319777/samples/ecommerce/Spices/cinnamon_ndc5v9.jpg",
-  //   },
-  //   {
-  //     name: "Cumin (jeera)",
-  //     price: "300",
-  //     reviews: "1",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319776/samples/ecommerce/Spices/Cumin_a2itmp.jpg",
-  //   },
-  //   {
-  //     name: "Star Annes",
-  //     price: "720",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319770/samples/ecommerce/Spices/Star_Annes_fkxwq2.jpg",
-  //   },
-  //   {
-  //     name: "White Pepper",
-  //     price: "1000",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319744/samples/ecommerce/Spices/White_Pepper_g8efdr.jpg",
-  //   },
-  //   {
-  //     name: "Black Pepper",
-  //     price: "600",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319727/samples/ecommerce/Spices/Black_Pepper_winygh.jpg",
-  //   },
-  //   {
-  //     name: "Cardamom",
-  //     price: "700",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319700/samples/ecommerce/Spices/Cardamom_po5im3.jpg",
-  //   },
-  //   {
-  //     name: "Fennel",
-  //     price: "315",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "500",
-  //     unit: "g",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319686/samples/ecommerce/Spices/fennel_xjxgdm.jpg",
-  //   },
-  // ];
-  // productSpices.sort((a, b) => a.price-(b.price));
+    getChocolate();
+  }, [productChocolates]);
 
   return (
     <div className="productPage">
       <div className="pageTitle">
-        <span>Kodai Spices</span>
+        <span>Kodai Chocolates</span>
         <Link to="/categories">
           <Button sx={{ fontSize: 18, color: "red" }}>
             <KeyboardArrowLeftIcon /> back
@@ -147,7 +59,7 @@ function Spices() {
         <span>Sort by Price :</span>
         <IconButton
           onClick={() => {
-            setPriceSort(productSpices.sort((a, b) => a.price - b.price)) ||
+            setPriceSort(productChocolates.sort((a, b) => a.price - b.price)) ||
               setSort(true);
           }}
         >
@@ -156,7 +68,7 @@ function Spices() {
         </IconButton>
         <IconButton
           onClick={() => {
-            setPriceSort(productSpices.sort((a, b) => b.price - a.price)) ||
+            setPriceSort(productChocolates.sort((a, b) => b.price - a.price)) ||
               setSort(true);
           }}
         >
@@ -166,7 +78,7 @@ function Spices() {
       </div>
       <div className="productSection">
         {!sort
-          ? productSpices.map((products) => (
+          ? productChocolates.map((products) => (
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1.1 }}
@@ -220,7 +132,12 @@ function Spices() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem,products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -282,7 +199,12 @@ function Spices() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem,products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -295,4 +217,4 @@ function Spices() {
   );
 }
 
-export default Spices;
+export default Chocolates;

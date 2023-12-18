@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Button,
   Card,
@@ -18,135 +18,35 @@ import { green } from "@mui/material/colors";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import { addCartContext } from "./DesktopApp";
+import { scrollToTop } from "../../Functions/Scrollonload";
 
-function Chocolates() {
+function NaturalOils() {
+  const [cartItem, setCartItem] = useContext(addCartContext);
   const [sort, setSort] = useState(false);
   const [priceSort, setPriceSort] = useState([]);
-  const [productChocolates, setProductChocolates] = useState([]);
-  const getChocolate = async () => {
+  const [productOil, setProductOil] = useState([]);
+  const getOils = async () => {
     try {
-      const data = await fetch(
-        "http://localhost:4000/api/products/chocolates",
-        {
-          headers: { productAuth: sessionStorage.getItem("autt") },
-        }
-      );
+      const data = await fetch("http://localhost:4000/api/products/oils", {
+        headers: { productAuth: sessionStorage.getItem("autt") },
+      });
       const jsonData = await data.json();
-      setProductChocolates(jsonData);
+      setProductOil(jsonData);
     } catch (error) {
       console.log(error);
     }
   };
+  scrollToTop();
+
   useEffect(() => {
-    getChocolate();
-  }, [productChocolates]);
-  // const productChocolates = [
-  //   {
-  //     name: "Whole Nut Chocolates",
-  //     price: "600",
-  //     reviews: "5",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319130/samples/ecommerce/Chocolates/Whole_nut_chocolates_sqrhq1.jpg",
-  //   },
-  //   {
-  //     name: "White Chocolates",
-  //     price: "650",
-  //     reviews: "8",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319128/samples/ecommerce/Chocolates/White_chocolates_r6nf8b.jpg",
-  //   },
-  //   {
-  //     name: "Walnut Chocolates",
-  //     price: "650",
-  //     reviews: "4",
-  //     inStock: false,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319126/samples/ecommerce/Chocolates/Walnut_chocolates_eommkm.jpg",
-  //   },
-  //   {
-  //     name: "Wafer Chocolates",
-  //     price: "680",
-  //     reviews: "1",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319125/samples/ecommerce/Chocolates/Wafer_chocolates_w6od8s.jpg",
-  //   },
-  //   {
-  //     name: "Strawberry Filled Chocolates",
-  //     price: "680",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319124/samples/ecommerce/Chocolates/Strawberry_chocolates_wvpycx.jpg",
-  //   },
-  //   {
-  //     name: "Plain Chocolates",
-  //     price: "650",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319122/samples/ecommerce/Chocolates/Plain_chocolates_xfya2y.jpg",
-  //   },
-  //   {
-  //     name: "Honey Filled Chocolates",
-  //     price: "680",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319121/samples/ecommerce/Chocolates/Honey_chocolates_n3mnrj.jpg",
-  //   },
-  //   {
-  //     name: "Flavour Filled Chocolates",
-  //     price: "680",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319118/samples/ecommerce/Chocolates/Flavour_filled_chocolates_wyktlo.jpg",
-  //   },
-  //   {
-  //     name: "Dark Chocolates",
-  //     price: "650",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319118/samples/ecommerce/Chocolates/Dark_chocolates_ymdpie.jpg",
-  //   },
-  //   {
-  //     name: "Cherry Top Chocolates",
-  //     price: "700",
-  //     reviews: "7",
-  //     inStock: true,
-  //     quantity: "1",
-  //     unit: "kg",
-  //     image:
-  //       "https://res.cloudinary.com/dommwbnzh/image/upload/v1700319117/samples/ecommerce/Chocolates/Cherry_Top_Chocolates_q1mm2l.jpg",
-  //   },
-  // ];
+    getOils();
+  }, [productOil]);
 
   return (
     <div className="productPage">
       <div className="pageTitle">
-        <span>Kodai Chocolates</span>
+        <span>Natural Oils</span>
         <Link to="/categories">
           <Button sx={{ fontSize: 18, color: "red" }}>
             <KeyboardArrowLeftIcon /> back
@@ -157,7 +57,7 @@ function Chocolates() {
         <span>Sort by Price :</span>
         <IconButton
           onClick={() => {
-            setPriceSort(productChocolates.sort((a, b) => a.price - b.price)) ||
+            setPriceSort(productOil.sort((a, b) => a.price - b.price)) ||
               setSort(true);
           }}
         >
@@ -166,7 +66,7 @@ function Chocolates() {
         </IconButton>
         <IconButton
           onClick={() => {
-            setPriceSort(productChocolates.sort((a, b) => b.price - a.price)) ||
+            setPriceSort(productOil.sort((a, b) => b.price - a.price)) ||
               setSort(true);
           }}
         >
@@ -176,7 +76,7 @@ function Chocolates() {
       </div>
       <div className="productSection">
         {!sort
-          ? productChocolates.map((products) => (
+          ? productOil.map((products) => (
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 1.1 }}
@@ -230,7 +130,12 @@ function Chocolates() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem,products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -292,7 +197,12 @@ function Chocolates() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton size="small">
+                      <IconButton
+                        size="small"
+                        onClick={() => {
+                          setCartItem([...cartItem,products]);
+                        }}
+                      >
                         <AddShoppingCartIcon sx={{ color: green[900] }} />
                       </IconButton>
                     </CardActions>
@@ -305,4 +215,4 @@ function Chocolates() {
   );
 }
 
-export default Chocolates;
+export default NaturalOils;
