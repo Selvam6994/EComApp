@@ -28,7 +28,7 @@ function DesktopApp() {
           <Route path="/categories/spices" element={<Spices />} />
           <Route path="/categories/coffee" element={<Coffee />} />
           <Route path="/categories/naturalolis" element={<NaturalOils />} />
-          <Route path="/myCart" element={<Cart/>}/>
+          <Route path="/myCart" element={<Cart />} />
         </Routes>
       </addCartContext.Provider>
     </div>

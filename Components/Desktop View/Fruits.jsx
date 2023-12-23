@@ -43,7 +43,7 @@ function Fruits() {
   scrollToTop();
   useEffect(() => {
     getfruits();
-  }, [productFruits]);
+  }, []);
 
   return (
     <div className="productPage">
@@ -61,6 +61,7 @@ function Fruits() {
           onClick={() => {
             setPriceSort(productFruits.sort((a, b) => a.price - b.price)) ||
               setSort(true);
+            getfruits();
           }}
         >
           {" "}
@@ -70,6 +71,7 @@ function Fruits() {
           onClick={() => {
             setPriceSort(productFruits.sort((a, b) => b.price - a.price)) ||
               setSort(true);
+            getfruits();
           }}
         >
           {" "}
@@ -80,19 +82,18 @@ function Fruits() {
         {!sort
           ? productFruits.map((products) => (
               <motion.div
-
-                whileHover={{ scale: 1.1 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 1.1 }}
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 280, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
                     <CardMedia
-                      sx={{ height: 220 }}
+                      sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
-                    <CardContent>
+                    <CardContent sx={{ height: 50 }}>
                       <Typography gutterBottom variant="h5" component="div">
                         <span>{products.name}</span>
                       </Typography>
@@ -136,7 +137,7 @@ function Fruits() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem,products]);
+                          setCartItem([...cartItem, products]);
                         }}
                         disabled={products.inStock ? false : true}
                       >
@@ -154,13 +155,13 @@ function Fruits() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 280, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
                     <CardMedia
-                      sx={{ height: 220 }}
+                      sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
-                    <CardContent>
+                    <CardContent sx={{ height: 50 }}>
                       <Typography gutterBottom variant="h5" component="div">
                         <span>{products.name}</span>
                       </Typography>
@@ -204,7 +205,7 @@ function Fruits() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem,products]);
+                          setCartItem([...cartItem, products]);
                         }}
                         disabled={products.inStock ? false : true}
                       >

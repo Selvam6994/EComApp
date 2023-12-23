@@ -40,7 +40,7 @@ function Spices() {
   scrollToTop();
   useEffect(() => {
     getSpices();
-  }, [priceSort]);
+  }, []);
 
   return (
     <div className="productPage">
@@ -58,6 +58,7 @@ function Spices() {
           onClick={() => {
             setPriceSort(productSpices.sort((a, b) => a.price - b.price)) ||
               setSort(true);
+              getSpices();
           }}
         >
           {" "}
@@ -67,6 +68,7 @@ function Spices() {
           onClick={() => {
             setPriceSort(productSpices.sort((a, b) => b.price - a.price)) ||
               setSort(true);
+              getSpices();
           }}
         >
           {" "}
@@ -82,13 +84,13 @@ function Spices() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 280, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
                     <CardMedia
-                      sx={{ height: 220 }}
+                     sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
-                    <CardContent>
+                    <CardContent sx={{ height: 50 }}>
                       <Typography gutterBottom variant="h5" component="div">
                         <span>{products.name}</span>
                       </Typography>
@@ -150,13 +152,13 @@ function Spices() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 280, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
                     <CardMedia
-                      sx={{ height: 220 }}
+                     sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
-                    <CardContent>
+                    <CardContent sx={{ height: 50 }}>
                       <Typography gutterBottom variant="h5" component="div">
                         <span>{products.name}</span>
                       </Typography>

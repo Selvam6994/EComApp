@@ -1,0 +1,66 @@
+  const categories = [
+    {
+      name: "Fruits",
+      image:
+        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313302/samples/ecommerce/Carousel%20Images/Avacado_upxwry.jpg",
+      route: "/categories/fruits",
+    },
+    {
+      name: "Chocolates",
+      image:
+        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700292278/samples/ecommerce/Carousel%20Images/Flavour_filled_chocolates_z8gzlq.jpg",
+      route: "/categories/chocolates",
+    },
+
+    {
+      name: "Spices",
+      image:
+        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313390/samples/ecommerce/Carousel%20Images/pepper-525696_1280_tycina.jpg",
+      route: "/categories/spices",
+    },
+    {
+      name: "Coffee Varieties",
+      image:
+        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313225/samples/ecommerce/Carousel%20Images/Coffee_Berry_crk2nj.jpg",
+        route:"/categories/coffee"
+    },
+    {
+      name: "Natural Oils",
+      image:
+        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313338/samples/ecommerce/Carousel%20Images/Eucalyptus_oil_shvngp.jpg",
+        route:'/categories/naturalolis'
+    },
+  ];
+
+<div className="categorySection">
+          <div className="categorySectionTitle">
+            <span>Categories</span>
+            <Link to="/categories" style={{textDecoration:"none"}}>
+            <Button sx={{ fontWeight: "bold", fontSize: "20px" }}>
+              See All <KeyboardArrowRightIcon sx={{ fontSize: 40 }} />
+            </Button>
+            </Link>
+          </div>
+          <div className="productCardSection">
+            {categories.map((products) => (
+              <Link to={products.route} style={{textDecoration:"none"}}>
+              <Card elevation={8} sx={{ minWidth: 280 }}>
+                <CardMedia
+                  sx={{ height: 180 }}
+                  image={products.image}
+                  title={products.name}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="div">
+                    {products.name}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button size="small">Share</Button>
+                  <Button size="small">View Products</Button>
+                </CardActions>
+              </Card>
+              </Link>
+            ))}
+          </div>
+        </div>

@@ -6,118 +6,175 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 
 function ProductCategory() {
-  const categories = [
-    {
-      name: "Fruits",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313302/samples/ecommerce/Carousel%20Images/Avacado_upxwry.jpg",
-      route: "/categories/fruits",
+  // const categoriesImage = categories.map((product) => product.image);
+  const [allProducts, setAllProducts] = useState([]);
+  const getAllProducts = async () => {
+    try {
+      const getData = await fetch(
+        "http://localhost:4000/api/get/all/products",
+        {
+          method: "GET",
+          headers: { productAuth: sessionStorage.getItem("autt") },
+        }
+      );
+      const data = await getData.json();
+      setAllProducts(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+  const fruits = allProducts.filter((fruit) => fruit.category == "fruit");
+  const chocolates = allProducts.filter(
+    (chocolate) => chocolate.category == "chocolate"
+  );
+  const spices = allProducts.filter((spice) => spice.category == "spices");
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 8,
     },
-    {
-      name: "Chocolates",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700292278/samples/ecommerce/Carousel%20Images/Flavour_filled_chocolates_z8gzlq.jpg",
-      route: "/categories/chocolates",
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
     },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 2,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1,
+    },
+  };
 
-    {
-      name: "Spices",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313390/samples/ecommerce/Carousel%20Images/pepper-525696_1280_tycina.jpg",
-      route: "/categories/spices",
-    },
-    {
-      name: "Coffee Varieties",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313225/samples/ecommerce/Carousel%20Images/Coffee_Berry_crk2nj.jpg",
-        route:"/categories/coffee"
-    },
-    {
-      name: "Natural Oils",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700313338/samples/ecommerce/Carousel%20Images/Eucalyptus_oil_shvngp.jpg",
-        route:'/categories/naturalolis'
-    },
-    {
-      name: "Our Popualr Products",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700322023/samples/ecommerce/Natural%20Oils/Jassmin_oil_ov1ymq.webp",
-    },
-    {
-      name: "Check Out Offers",
-      image:
-        "https://res.cloudinary.com/dommwbnzh/image/upload/v1700372691/samples/ecommerce/Special%20Offer/20667_nauicy.jpg",
-    },
-  ];
   return (
-    <div className="categoriesPage">
-      {/* side nav */}
-      <Paper
-        elevation={8}
-        className="categorySideNav"
-        // style={{ backgroundColor: "#DEA22F" }}
-      >
-        <div className="sideNavContent">
-          <span>Categories</span>
-          <div className="categoriesList">
-            {categories.map((item) => (
-              <motion.div
-                className="navButtons"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              >
-                {" "}
-                <Paper
-                  elevation={4}
-                  style={{
-                    minWidth: "300px",
-                    display: "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <li style={{ fontSize: 30, listStyle: "none" }}>
-                    {item.name}
-                  </li>
-                </Paper>
-              </motion.div>
-            ))}
+    <div className="productsPage">
+      <div className="productPageContent">
+        <div className="productsPageTitle">
+          <span>Our Products</span>
+        </div>
+        <div className="subCategory">
+          <div className="subCategoryHeaders">
+            <span>Fruits</span>
+            <Link to="/categories/fruits">
+              <Button>
+                See All
+                <KeyboardArrowRightIcon />
+              </Button>
+            </Link>
           </div>
+          <Carousel
+            className="productCarousel"
+            responsive={responsive}
+            swipeable={true}
+            draggable={false}
+            infinite={true}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
+            {fruits.map((product) => (
+              <Paper
+                elevation={4}
+                className="subCategory_productCards"
+                sx={{ borderRadius: "10px" }}
+              >
+                <img src={product.image} alt={product.name} />
+                <div className="subCategory_CardDetails">
+                  <span>{product.name}</span>
+                  <span>
+                    <CurrencyRupeeIcon />
+                    {product.price}/-
+                  </span>
+                </div>
+                <Button>View Product</Button>
+              </Paper>
+            ))}
+          </Carousel>
         </div>
-      </Paper>
-      <div className="categoryPageSection">
-        <div className="categoryPageTitle">
-          <span>Select a Category</span>
+        <div className="subCategory">
+          <div className="subCategoryHeaders">
+            <span>Chocolates</span>
+            <Link to="/categories/chocolates">
+              <Button>
+                See All
+                <KeyboardArrowRightIcon />
+              </Button>
+            </Link>
+          </div>
+          <Carousel
+            className="productCarousel"
+            responsive={responsive}
+            swipeable={true}
+            draggable={false}
+            infinite={true}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
+            {chocolates.map((product) => (
+              <Paper
+                elevation={4}
+                className="subCategory_productCards"
+                sx={{ borderRadius: "10px" }}
+              >
+                <img src={product.image} alt={product.name} />
+                <div className="subCategory_CardDetails">
+                  <span>{product.name}</span>
+                  <span>
+                    <CurrencyRupeeIcon />
+                    {product.price}/-
+                  </span>
+                </div>
+                <Button>View Product</Button>
+              </Paper>
+            ))}
+          </Carousel>
         </div>
-        <div className="categoryCardSection">
-          {categories.map((products) => (
-            <motion.div
-              className="navButtons"
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 400, damping: 17 }}
-            >
-              <Link to={products.route} style={{textDecoration:"none"}}>
-                <Card elevation={8} sx={{ minWidth: 280, margin: 5 }}>
-                  <CardMedia
-                    sx={{ height: 180 }}
-                    image={products.image}
-                    title={products.name}
-                  />
-                  <CardContent className="categoryCardContent">
-                    <Typography gutterBottom variant="h5" component="div">
-                      <span>{products.name}</span>
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-          ))}
+        <div className="subCategory">
+          <div className="subCategoryHeaders">
+            <span>Spices</span>
+            <Link to="/categories/spices">
+              <Button>
+                See All
+                <KeyboardArrowRightIcon />
+              </Button>
+            </Link>
+          </div>
+          <Carousel
+            className="productCarousel"
+            responsive={responsive}
+            swipeable={true}
+            draggable={false}
+            infinite={true}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
+            {spices.map((product) => (
+              <Paper
+                elevation={4}
+                className="subCategory_productCards"
+                sx={{ borderRadius: "10px" }}
+              >
+                <img src={product.image} alt={product.name} />
+                <div className="subCategory_CardDetails">
+                  <span>{product.name}</span>
+                  <span>
+                    <CurrencyRupeeIcon />
+                    {product.price}/-
+                  </span>
+                </div>
+                <Button>View Product</Button>
+              </Paper>
+            ))}
+          </Carousel>
         </div>
       </div>
     </div>

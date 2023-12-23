@@ -42,7 +42,7 @@ function Navbar() {
       route: "/",
     },
     {
-      name: "Shop by Category",
+      name: "Products",
       route: "categories",
     },
     {
@@ -65,7 +65,7 @@ function Navbar() {
           <Link to={option.route} style={{ textDecoration: "none" }}>
             <motion.div
               className="navButtons"
-              whileHover={{ scale: 1.2 }}
+              
               whileTap={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
             >
