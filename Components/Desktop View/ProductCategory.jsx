@@ -40,14 +40,15 @@ function ProductCategory() {
     (chocolate) => chocolate.category == "chocolate"
   );
   const spices = allProducts.filter((spice) => spice.category == "spices");
+  const oils = allProducts.filter((oil) => oil.category == "oil");
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 8,
+      items: 6,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 5,
+      items: 4,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -79,8 +80,8 @@ function ProductCategory() {
             className="productCarousel"
             responsive={responsive}
             swipeable={true}
-            draggable={false}
-            infinite={true}
+            draggable={true}
+            infinite={false}
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {fruits.map((product) => (
@@ -97,7 +98,9 @@ function ProductCategory() {
                     {product.price}/-
                   </span>
                 </div>
-                <Button>View Product</Button>
+                <Link to={`/categories/${product.category}/${product.name}`}>
+                  <Button>View Product</Button>
+                </Link>
               </Paper>
             ))}
           </Carousel>
@@ -116,8 +119,8 @@ function ProductCategory() {
             className="productCarousel"
             responsive={responsive}
             swipeable={true}
-            draggable={false}
-            infinite={true}
+            draggable={true}
+            infinite={false}
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {chocolates.map((product) => (
@@ -134,7 +137,9 @@ function ProductCategory() {
                     {product.price}/-
                   </span>
                 </div>
-                <Button>View Product</Button>
+                <Link to={`/categories/${product.category}/${product.name}`}>
+                  <Button>View Product</Button>
+                </Link>
               </Paper>
             ))}
           </Carousel>
@@ -153,8 +158,8 @@ function ProductCategory() {
             className="productCarousel"
             responsive={responsive}
             swipeable={true}
-            draggable={false}
-            infinite={true}
+            draggable={true}
+            infinite={false}
             removeArrowOnDeviceType={["tablet", "mobile"]}
           >
             {spices.map((product) => (
@@ -171,7 +176,48 @@ function ProductCategory() {
                     {product.price}/-
                   </span>
                 </div>
-                <Button>View Product</Button>
+                <Link to={`/categories/${product.category}/${product.name}`}>
+                  <Button>View Product</Button>
+                </Link>
+              </Paper>
+            ))}
+          </Carousel>
+        </div>
+        <div className="subCategory">
+          <div className="subCategoryHeaders">
+            <span>Natural Oils</span>
+            <Link to="/categories/naturalolis">
+              <Button>
+                See All
+                <KeyboardArrowRightIcon />
+              </Button>
+            </Link>
+          </div>
+          <Carousel
+            className="productCarousel"
+            responsive={responsive}
+            swipeable={true}
+            draggable={true}
+            infinite={false}
+            removeArrowOnDeviceType={["tablet", "mobile"]}
+          >
+            {oils.map((product) => (
+              <Paper
+                elevation={4}
+                className="subCategory_productCards"
+                sx={{ borderRadius: "10px" }}
+              >
+                <img src={product.image} alt={product.name} />
+                <div className="subCategory_CardDetails">
+                  <span>{product.name}</span>
+                  <span>
+                    <CurrencyRupeeIcon />
+                    {product.price}/-
+                  </span>
+                </div>
+                <Link to={`/categories/${product.category}/${product.name}`}>
+                  <Button>View Product</Button>
+                </Link>
               </Paper>
             ))}
           </Carousel>

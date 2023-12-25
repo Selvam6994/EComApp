@@ -11,6 +11,7 @@ import Spices from "../Desktop View/Spices";
 import Coffee from "../Desktop View/Coffee";
 import NaturalOils from "../Desktop View/NaturalOils";
 import Cart from "./Cart";
+import ViewProduct from "./ViewProduct";
 
 export const addCartContext = createContext();
 function DesktopApp() {
@@ -28,6 +29,7 @@ function DesktopApp() {
           <Route path="/categories/spices" element={<Spices />} />
           <Route path="/categories/coffee" element={<Coffee />} />
           <Route path="/categories/naturalolis" element={<NaturalOils />} />
+          <Route path="/categories/:category/:product" element={<ViewProduct/>}/>
           <Route path="/myCart" element={<Cart />} />
         </Routes>
       </addCartContext.Provider>
