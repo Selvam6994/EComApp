@@ -87,14 +87,14 @@ function Fruits() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ width:250, marginBottom: 10 }}>
                     <CardMedia
                       sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
                     <CardContent sx={{ height: 50 }}>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h6" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>
@@ -155,14 +155,14 @@ function Fruits() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{width:250, marginBottom: 10 }}>
                     <CardMedia
                       sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
                     <CardContent sx={{ height: 50 }}>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h6" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>

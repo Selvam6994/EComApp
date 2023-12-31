@@ -59,7 +59,7 @@ function NaturalOils() {
           onClick={() => {
             setPriceSort(productOil.sort((a, b) => a.price - b.price)) ||
               setSort(true);
-              getOils();
+            getOils();
           }}
         >
           {" "}
@@ -69,7 +69,7 @@ function NaturalOils() {
           onClick={() => {
             setPriceSort(productOil.sort((a, b) => b.price - a.price)) ||
               setSort(true);
-              getOils();
+            getOils();
           }}
         >
           {" "}
@@ -85,14 +85,14 @@ function NaturalOils() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ width: 250, marginBottom: 10 }}>
                     <CardMedia
                       sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
                     <CardContent sx={{ height: 50 }}>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h6" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>
@@ -135,7 +135,7 @@ function NaturalOils() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem,products]);
+                          setCartItem([...cartItem, products]);
                         }}
                         disabled={products.inStock ? false : true}
                       >
@@ -153,14 +153,14 @@ function NaturalOils() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ width: 250, marginBottom: 10 }}>
                     <CardMedia
-                     sx={{ height: 150 }}
+                      sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
                     <CardContent sx={{ height: 50 }}>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h6" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>
@@ -203,7 +203,7 @@ function NaturalOils() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem,products]);
+                          setCartItem([...cartItem, products]);
                         }}
                         disabled={products.inStock ? false : true}
                       >

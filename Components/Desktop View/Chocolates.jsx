@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import StarIcon from "@mui/icons-material/Star";
 import { yellow } from "@mui/material/colors";
@@ -31,7 +31,7 @@ function Chocolates() {
       const data = await fetch(
         "http://localhost:4000/api/products/chocolates",
         {
-          method:"GET",
+          method: "GET",
           headers: { productAuth: sessionStorage.getItem("autt") },
         }
       );
@@ -45,6 +45,8 @@ function Chocolates() {
   useEffect(() => {
     getChocolate();
   }, []);
+
+  const userToken = sessionStorage.getItem("ut");
 
   return (
     <div className="productPage">
@@ -62,7 +64,7 @@ function Chocolates() {
           onClick={() => {
             setPriceSort(productChocolates.sort((a, b) => a.price - b.price)) ||
               setSort(true);
-              getChocolate();
+            getChocolate();
           }}
         >
           {" "}
@@ -72,7 +74,7 @@ function Chocolates() {
           onClick={() => {
             setPriceSort(productChocolates.sort((a, b) => b.price - a.price)) ||
               setSort(true);
-              getChocolate();
+            getChocolate();
           }}
         >
           {" "}
@@ -88,14 +90,14 @@ function Chocolates() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ width: 250, marginBottom: 10 }}>
                     <CardMedia
                       sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
                     <CardContent sx={{ height: 50 }}>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h6" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>
@@ -135,15 +137,24 @@ function Chocolates() {
                     </CardContent>
                     <CardActions>
                       <Button size="small">View Product</Button>
-                      <IconButton
-                        size="small"
-                        onClick={() => {
-                          setCartItem([...cartItem, products]);
-                        }}
-                        disabled={products.inStock ? false : true}
-                      >
-                        <AddShoppingCartIcon sx={{ color: green[900] }} />
-                      </IconButton>
+                      {userToken ? (
+                        <IconButton
+                          size="small"
+                          onClick={() => {}}
+                          disabled={products.inStock ? false : true}
+                        >
+                          <AddShoppingCartIcon sx={{ color: green[900] }} />
+                        </IconButton>
+                      ) : (
+                        <Link to="/account/login"> 
+                        <IconButton
+                          size="small"
+                          disabled={products.inStock ? false : true}
+                        >
+                          <AddShoppingCartIcon sx={{ color: green[900] }} />
+                        </IconButton>
+                        </Link>
+                      )}
                     </CardActions>
                   </Card>
                 </Link>
@@ -156,14 +167,14 @@ function Chocolates() {
                 transition={{ type: "spring", stiffness: 400, damping: 17 }}
               >
                 <Link to={products.route} style={{ textDecoration: "none" }}>
-                  <Card elevation={8} sx={{ minWidth: 200, marginBottom: 10 }}>
+                  <Card elevation={8} sx={{ width: 250, marginBottom: 10 }}>
                     <CardMedia
-                    sx={{ height: 150 }}
+                      sx={{ height: 150 }}
                       image={products.image}
                       title={products.name}
                     />
                     <CardContent sx={{ height: 50 }}>
-                      <Typography gutterBottom variant="h5" component="div">
+                      <Typography gutterBottom variant="h6" component="div">
                         <span>{products.name}</span>
                       </Typography>
                     </CardContent>
@@ -206,7 +217,16 @@ function Chocolates() {
                       <IconButton
                         size="small"
                         onClick={() => {
-                          setCartItem([...cartItem, products]);
+                          setCartItem([
+                            ...cartItem,
+                            {
+                              image: products.image,
+                              name: products.name,
+                              quantity: products.quantity,
+                              price: products.price,
+                              unit: products.unit,
+                            },
+                          ]);
                         }}
                         disabled={products.inStock ? false : true}
                       >

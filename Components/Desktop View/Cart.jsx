@@ -2,16 +2,25 @@ import { Button, Paper } from "@mui/material";
 import React, { useContext, useState } from "react";
 import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import { addCartContext } from "./DesktopApp";
+import Cookies from "js-cookie";
+
 
 const Cart = () => {
   const [cartItem] = useContext(addCartContext);
   const cartItems = cartItem;
   const totalPrice = () => {
     let total = 0;
-    const price = cartItem.map((item) => (total = +item.price + total));
+    const price = cartItems.map((item) => (total = +item.price + total));
     return price[price.length - 1];
   };
-  console.log(totalPrice());
+
+    const cartItemId = Cookies.get("doc");
+    const productId = cartItemId.split("");
+    productId.shift();
+    const itemsArr = productId.join("");
+    console.log(itemsArr);
+  
+
   return (
     <div className="cartPage">
       {cartItems.length == 0 ? (
